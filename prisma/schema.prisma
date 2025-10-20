@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource estadia_db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String     @id @default(cuid())
+  name       String
+  email      String     @unique
+  password   String
+  userImage  Bytes?
+  cpf        String     @unique
+  phones     Phone[]
+  properties Property[]
+  reserves   Reserve[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model Phone {
+  id     String @id @default(cuid())
+  phone  String @unique
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("phones")
+}
+
+model Property {
+  id               String          @id @default(cuid())
+  type             String
+  description      String
+  numberOfBedroom  Int
+  numberOfSuite    Int
+  numberOfGarage   Int
+  numberOfRoom     Int
+  numberOfBathroom Int
+  outdoorArea      Boolean
+  pool             Boolean
+  barbecue         Boolean
+  street           String
+  number           Int
+  neighborhood     String
+  state            String
+  city             String
+  CEP              String
+  dailyRate        Float
+  userId           String
+  user             User            @relation(fields: [userId], references: [id])
+  images           PropertyImage[]
+  reserves         Reserve[]
+
+  @@map("properties")
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  image      Bytes
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@map("property_images")
+}
+
+model Reserve {
+  id                String             @id @default(cuid())
+  dateStart         DateTime
+  dateEnd           DateTime
+  status            String
+  propertyId        String
+  property          Property           @relation(fields: [propertyId], references: [id])
+  userId            String
+  user              User               @relation(fields: [userId], references: [id])
+  propertyValuation PropertyValuation?
+  clientValuation   ClientValuation?
+  payment           Payment?
+
+  @@map("reserves")
+}
+
+model PropertyValuation {
+  id                    String   @id @default(cuid())
+  noteProperty          Float
+  commentProperty       String?
+  datePropertyValuation DateTime @default(now())
+  reserveId             String   @unique
+  reserve               Reserve  @relation(fields: [reserveId], references: [id], onDelete: Cascade)
+
+  @@map("property_valuations")
+}
+
+model ClientValuation {
+  id                  String   @id @default(cuid())
+  noteClient          Float
+  commentClient       String?
+  dateClientValuation DateTime @default(now())
+  reserveId           String   @unique
+  reserve             Reserve  @relation(fields: [reserveId], references: [id], onDelete: Cascade)
+
+  @@map("client_valuations")
+}
+
+model Payment {
+  id           String   @id @default(cuid())
+  paymentValue Float
+  datePayment  DateTime
+  reserveId    String   @unique
+  reserve      Reserve  @relation(fields: [reserveId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
