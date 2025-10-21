@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: . 
+    container_name: auth_service
+    env_file: ../Autenticacao/.env 
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    ports:
+      - "3001:3001" 
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - estadia_ja_network
+
+networks: 
+  estadia_ja_network:
+    external: true

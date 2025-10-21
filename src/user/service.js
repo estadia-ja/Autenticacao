@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from './model.js';
-import { prisma } from '../../../Backend/estatia-ja-backend/src/database.js';
+import { prisma } from '../config/database.js';
 
 const userService = {
     async createUser(userData) {

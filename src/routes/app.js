@@ -1,9 +1,9 @@
 import express from 'express';
-import { testConnection } from './database.js';
+import { testConnection } from '../config/database.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './swagger.js'; 
+import swaggerSpec from '../docs/swagger.js'; 
 import cors from 'cors';
-import userRoutes from './user/routes.js';
+import userRoutes from '../user/routes.js';
 
 const app = express();
 
