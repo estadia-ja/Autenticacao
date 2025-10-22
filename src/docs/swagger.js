@@ -5,7 +5,7 @@ const swaggerDefinition = {
     info: {
         title: 'Serviço de Autenticação - Estadia Já',
         version: '1.0.0',
-        description: 'Documentação da API de autenticação (registro e login)' 
+        description: 'Documentação da API de autenticação (login)' 
     },
     servers: [
         {
@@ -25,7 +25,7 @@ const swaggerDefinition = {
     tags: [
         {
             name: 'Autenticação', 
-            description: 'Rotas de registro e login de usuário'
+            description: 'Rota login de usuário'
         }
     ],
 };
@@ -33,7 +33,7 @@ const swaggerDefinition = {
 const options = {
     swaggerDefinition,
     apis: [
-        './src/user/routes.js' 
+        './src/auth/routes.js' 
     ],
   };
 

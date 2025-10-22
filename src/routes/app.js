@@ -3,6 +3,7 @@ import { testConnection } from '../config/database.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from '../docs/swagger.js'; 
 import cors from 'cors';
+import authRoutes from '../auth/routes.js';
 //import userRoutes from '../user/routes.js';
 
 const app = express();
@@ -21,7 +22,7 @@ app.get('/test-db', async (req, res) => {
     });
 });
 
-// Rotas da api
-//app.use('/user', userRoutes);
+// Rota
+app.use('/auth', authRoutes)
 
 export { app };
