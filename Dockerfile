@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["node", "src/index.js"]
+CMD ["npm", "run", "dev"]
