@@ -3,7 +3,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 const isProduction = process.env.NODE_ENV === 'production';
 
 const productionServer = {
-  url: 'https://estadia-ja-auth.onrender.com', 
+  url: 'https://autenticacao-3uun.onrender.com', 
   description: 'Servidor de Produção (Render)',
 };
 
