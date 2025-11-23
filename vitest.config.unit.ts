@@ -7,4 +7,9 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'], 
     },
   },
+  resolve: {
+    alias: {
+      auth: '/src/**/test',
+    },
+  },
 });
